@@ -126,78 +126,79 @@ CharList::get_last_node() const {
 void process_pattern(const char* pattern, int arr[])
 {
 	//KMP Algorithm
-    arr[0] = 0;
+	arr[0] = 0;
 	int len = strlen(pattern);
-    int i = 1, j = 0;
-    while (i < len) {
-        if (pattern[i] == pattern[j]) {
-            arr[i] = arr[j] + 1;
-            i++;
-            j++;
-        }
-        else if (j > 0) {
-            j = arr[j-1];
-        }
-        else {
-            arr[i] = 0;
-            i++;
-        } 
-    }
+	int i = 1, j = 0;
+	while (i < len) {
+		if (pattern[i] == pattern[j]) {
+			arr[i] = arr[j] + 1;
+			i++;
+			j++;
+		}
+		else if (j > 0) {
+			j = arr[j-1];
+		}
+		else {
+			arr[i] = 0;
+			i++;
+		}
+	}
 }
 
 bool
 CharList::match_and_delete(const char* pattern) {
 	int n = strlen(pattern);
-    int F[n];
-    process_pattern(pattern, F);
+	int F[n];
+	process_pattern(pattern, F);
 
 	bool found = false;
 	Node* h = head_;
 	Node* t = h;
 	int i = 0, j = 0;
-	int index = 0;
 	while (h != NULL && t != NULL) {
 		if(t->get_val() == pattern[j]) {
 			if(j == n-1) {
 				int start = i-j;
-                Node* last = NULL;
+				Node* last = head_;
+				int index = 0;
 				while (index < start) {
-                    last = h;
+					last = h;
 					h = h->get_next();
 					index++;
 				}
-                    
-                Node* final = t->get_next();
-                while(h != final) {
-                    if (h == head_) {
-                        Node* next = h->get_next();
-                        delete h;
-                        h = next;
-                        head_ = h;
-                        index = i = 0;
-                    }
-                    else {
-                        Node* next = h->get_next();
-                        if (next){
-                            delete h;
-                            last->set_next(next);
-                            h = last->get_next();
-                        }
-                        else {
-                            t = h->get_next();
-                            last->set_next(NULL);
-                            break;
-                        }
-                    }
-                }
-                t = h;
-                j = 0;
+
+				Node* final = t->get_next();
+				//delete node
+				while(h != final) {
+					if (h == head_) {
+						Node* next = h->get_next();
+						delete h;
+						h = next;
+						head_ = h;
+					}
+					else {
+						Node* next = h->get_next();
+						if (next){
+							delete h;
+							last->set_next(next);
+							h = last->get_next();
+						}
+						else {
+							t = h->get_next();
+							delete h;
+							last->set_next(NULL);
+							break;
+						}
+					}
+				}
+				t = h;
+				j = i = 0;
 				found = true;
 			}
 			else {
 				t = t->get_next();
 				i++;
-                j++;
+				j++;
 			}
 		}
 		else if(j > 0) {
@@ -205,7 +206,7 @@ CharList::match_and_delete(const char* pattern) {
 		}
 		else {
 			t = t->get_next();
-            i++;
+			i++;
 		}
 	}
 
