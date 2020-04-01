@@ -11,8 +11,9 @@ Write an interface for a data structure that can provide the moving average of t
 
 There are 3 main things.
 1. Provide a separate interface (IE `interface`/`trait`) with documentation for the data structure
+
 -- Interface
- "Structure" Interface of the functions supported by the data structure. C++ supports pure virtual functions. Functions provided are:
+### "Structure" Interface of the functions supported by the data structure. C++ supports pure virtual functions. Functions provided are:
 
 	virtual double averageLastMoving()=0;
 	Get the average of last N elements. Element insertion updates the total sum accordingly.
