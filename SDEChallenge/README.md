@@ -3,53 +3,65 @@
 ## Coding Question
 
 Write an interface for a data structure that can provide the moving average of the last N elements added, add elements to the structure and get access to the elements. Provide an efficient implementation of the interface for the data structure.
-### Minimum Requirements
-
 
 
 ## It's a C++ project.
 
 There are 3 main things.
-1. Provide a separate interface (IE `interface`/`trait`) with documentation for the data structure
+##1. Interface with documentation for the data structure
 
--- Interface
-### "Structure" Interface of the functions supported by the data structure. C++ supports pure virtual functions. Functions provided are:
+## "Structure" Interface defines the methods supported by the data structure. C++ supports pure virtual functions. Functions provided are:
 
-	virtual double averageLastMoving()=0;
-	Get the average of last N elements. Element insertion updates the total sum accordingly.
+	#### virtual void addElement(T ele)=0;
+	Adds the element to the structure
+	
+	#### virtual int size()=0;
+	Gets the number of elements
 
-	virtual void addElement(T ele)=0;
+	#### virtual double movingAverage(int n)=0;
+	Returns the moving average of last N elements
 
-	virtual int size()=0;
+	#### virtual T getElement(int index)=0;
+	Returns the element at index 
 
-	virtual Iterator begin()=0;
-	Returns the pointer to first element.
+	#### virtual Iterator begin()=0;
+	Returns the iterator to first element
 
-	virtual Iterator end()=0;
-	Returns the pointer to last element.
+	#### virtual Iterator end()=0;
+	Returns the iterator to last element
 
-	Implementation
-	Implemented it using data structures: list.
+###Implementation
+   Implemented it using data structures: list, hashmap
 
-LinkedList is suitable for situation that ADD/GET operations usually happens on the first or last positions.
+	1(b). Traits
+	#### "Base" structure defines the basic. Extend the base traits to define user element. Functions provided:
+		virtual double getValue()=0;
+		For example, SimpleElement is the simplest trait in this case.
+
+##2. Implementation for the interface
+
+### "StructureImpl" class defines the implementation of interface "Structure"
+
+	The data structure is implemented using Linked List and Hash Map. All elements are stored sequentially in the List. HashMap is used to store the sum of all the elements so far at each index. It also stores the pointer to an element in the list. 
+
+	#### "addElement" function always pushes the element into list. It also updates the sum in HashMap, cosidering the latest element. It also keeps the reference to the new element pushed back in the list.
+
+	#### "movingAverage" function returns the average of last n elements. It takes n as a parameter. It takes 3 conditions.
+	a. if N <= 0
+		It should consider nothing when calculating the average.
+	b. if N >= total number of elements
+		It should return the average of all the elements
+	c. if N is the range less than number of elements in the structure. N > 0 && N < size	
+		It should find out the sum before N elements from HashMap. It substracts that sum from total sum to find out the sum of N elements. It returns the average of last N elements.
+	
+	#### "getElement" function returns the element at given index. It finds the list iterator(element position) from HashMap with the given index. It returns the element from list with iterator found in the Map.
+
+	#### "size" returns the number of elements in the data structure
+	#### "begin" and "end" returns the pointer to first and last elements.
 
 
--- Traits
 
- "Base" structure defines the basic. Extend the base traits to define user element. Functions provided:
 
-	virtual double getValue()=0;
-
- For example, SimpleElement is the simplest trait in this case.
-
-2. Provide an implementation for the interface
-
- "StructureImpl" class defines the implementation of interface "Structure"
-
-	- "addElement" function always pushes the element into list of elements. It uses the traits to calculate the sum. It also removes the old elements, when the size of list exceeds the original capacity N(window size)
-	- "averageLastMoving" function calculate the average with calculated sum and initial capacity
-	- "size" returns the number of elements in the data structure
-	- "begin" and "end" returns the pointer to first and last elements.
 
 
 ## Design Question
