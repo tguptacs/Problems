@@ -18,10 +18,10 @@ Write an interface for a data structure that can provide the moving average of t
 	Gets the number of elements
 
 	#### virtual double movingAverage(int n)=0;
-	Returns the moving average of last N elements
+	Returns the moving average of last N elements. Time complexity is O(1).
 
 	#### virtual T getElement(int index)=0;
-	Returns the element at index 
+	Returns the element at index. Time complexity is O(1).
 
 	#### virtual Iterator begin()=0;
 	Returns the iterator to first element
