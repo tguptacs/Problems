@@ -29,11 +29,11 @@ Write an interface for a data structure that can provide the moving average of t
 	#### virtual Iterator end()=0;
 	Returns the iterator to last element
 
-###Implementation
+### Implementation
    Implemented it using data structures: list, hashmap
 
 	1(b). Traits
-	#### "Base" structure defines the basic traits. Extend the base traits to define user element. Functions provided:
+	#### "Base" structure defines the basic traits. Extend the base traits to define user element. Functions provided are:
 		virtual double getValue()=0;
 		For example, SimpleElement is the simplest trait in this case.
 
@@ -50,10 +50,10 @@ Write an interface for a data structure that can provide the moving average of t
 		It should not consider anything when calculating the average.
 	b. if N >= total number of elements
 		It should return the average of all the elements
-	c. if N is the range between than number of elements in the structure. N > 0 && N < size	
+	c. if N is the range between the number of elements in the structure. N > 0 && N < size	
 		It should find out the sum before N elements from HashMap. It substracts that sum from total sum to find out the sum of N elements. It returns the average of last N elements.
 	
-	#### "getElement" function returns the element at given index. It finds the list iterator(element position) from HashMap with the given index. It returns the element from list with iterator found in the Map.
+	#### "getElement" function returns the element at given index. It finds the list iterator(element position) from HashMap with the given index. It returns the element from list with position stored in the Map.
 
 	#### "size" returns the number of elements in the data structure
 	#### "begin" and "end" returns the pointer to first and last elements.
