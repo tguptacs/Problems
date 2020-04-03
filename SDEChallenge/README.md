@@ -5,9 +5,8 @@
 Write an interface for a data structure that can provide the moving average of the last N elements added, add elements to the structure and get access to the elements. Provide an efficient implementation of the interface for the data structure.
 
 
-## It's a C++ project.
+## It's a C++ project. "Main.cc" file shows the working code. Other 2 files "structure" and "structureImpl" describe below the interface and implementation respectively.
 
-There are 3 main things.
 ##1. Interface with documentation for the data structure
 
 ## "Structure" Interface defines the methods supported by the data structure. C++ supports pure virtual functions. Functions provided are:
@@ -34,7 +33,7 @@ There are 3 main things.
    Implemented it using data structures: list, hashmap
 
 	1(b). Traits
-	#### "Base" structure defines the basic. Extend the base traits to define user element. Functions provided:
+	#### "Base" structure defines the basic traits. Extend the base traits to define user element. Functions provided:
 		virtual double getValue()=0;
 		For example, SimpleElement is the simplest trait in this case.
 
@@ -48,10 +47,10 @@ There are 3 main things.
 
 	#### "movingAverage" function returns the average of last n elements. It takes n as a parameter. It takes 3 conditions.
 	a. if N <= 0
-		It should consider nothing when calculating the average.
+		It should not consider anything when calculating the average.
 	b. if N >= total number of elements
 		It should return the average of all the elements
-	c. if N is the range less than number of elements in the structure. N > 0 && N < size	
+	c. if N is the range between than number of elements in the structure. N > 0 && N < size	
 		It should find out the sum before N elements from HashMap. It substracts that sum from total sum to find out the sum of N elements. It returns the average of last N elements.
 	
 	#### "getElement" function returns the element at given index. It finds the list iterator(element position) from HashMap with the given index. It returns the element from list with iterator found in the Map.
@@ -76,3 +75,7 @@ We need to provide Google Analytic like services to our customers. Please provid
 3. Provide metrics to customers with at most one hour delay.
 4. Run with minimum downtime.
 5. Have the ability to reprocess historical data in case of bugs in the processing logic.
+
+
+
+### Please refer the design pdf for the solution
